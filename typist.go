@@ -66,9 +66,7 @@ readLoop:
 			if char == 3 {
 				fmt.Printf("got ctrl+c\r\n")
 				break readLoop
-			}
-
-			if char == 13 {
+			} else if char == 13 {
 				fmt.Printf("got enter\r\n")
 
 				// line feed by lineFeedValue/216 inches
@@ -77,6 +75,10 @@ readLoop:
 				// carriage return
 				p.fd.Write([]byte{13})
 
+				continue
+			} else if char == 127 {
+				fmt.Printf("got backspace\r\n")
+				p.fd.Write([]byte{8})
 				continue
 			}
 
